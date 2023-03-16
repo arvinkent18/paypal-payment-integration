@@ -1,0 +1,1 @@
+export const ERR_DEFAULT_MESSAGE = 'An error happened!';
