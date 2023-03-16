@@ -8,7 +8,7 @@ import { PaypalService } from './paypal.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { ERR_DEFAULT_MESSAGE } from 'src/constants';
-import { PostOrderResponse } from './paypal.interface';
+import { PaypalOrderResponse } from './paypal.interface';
 
 @ApiTags('paypal')
 @Controller('paypal')
@@ -20,11 +20,11 @@ export class PaypalController {
    *
    * @param {CreateOrderDto} createOrderDto - The data needed to create the order.
    * @throws {InternalServerErrorException} - If unexpected internal error occurred.
-   * @returns {Promise<PostOrderResponse>} The created order object.
+   * @returns {Promise<PaypalOrderResponse>} The created order object.
    */
   @ApiBody({ type: CreateOrderDto })
   @Post('order')
-  async createOrder(@Body() createOrderDto: CreateOrderDto): Promise<PostOrderResponse> {
+  async createOrder(@Body() createOrderDto: CreateOrderDto): Promise<PaypalOrderResponse> {
     try {
       const order = this.paypalService.createOrder(createOrderDto);
 

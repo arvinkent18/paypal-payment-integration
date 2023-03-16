@@ -1,9 +1,9 @@
 import { CreateOrderDto } from './dto/create-order.dto';
 import { HttpService } from '@nestjs/axios';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
-import { PostOrderResponse } from './paypal.interface';
+import { PayPalAuthResponse, PaypalOrderResponse } from './paypal.interface';
 
 @Injectable()
 export class PaypalService {
@@ -20,16 +20,16 @@ export class PaypalService {
    * Create a Paypal order.
    *
    * @param {CreateOrderDto} createOrderDto - The data needed to create the order
-   * @returns {Promise<PostOrderResponse>} The created order object
+   * @returns {Promise<PaypalOrderResponse>} The created order object
    */
   async createOrder(
     createOrderDto: CreateOrderDto,
-  ): Promise<PostOrderResponse> {
+  ): Promise<PaypalOrderResponse> {
     const accessToken = await this.generateAccessToken();
     const url = `${this.base}/v2/checkout/orders`;
     const { intent, purchase_units, application_context } = createOrderDto;
     const { data } = await firstValueFrom(
-      this.httpService.post<PostOrderResponse>(
+      this.httpService.post<PaypalOrderResponse>(
         url,
         {
           intent,
@@ -60,7 +60,7 @@ export class PaypalService {
     const auth: string = Buffer.from(`${clientId}:${clientSecret}`).toString(
       'base64',
     );
-    const request = this.httpService.post(
+    const request = this.httpService.post<PayPalAuthResponse>(
       `${this.base}/v1/oauth2/token`,
       'grant_type=client_credentials',
       {

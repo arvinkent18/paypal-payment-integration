@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { PaypalModule } from './paypal/paypal.module';
 import { AppConfigModule } from './config/app.config.module';
 
@@ -9,7 +7,7 @@ import { AppConfigModule } from './config/app.config.module';
     AppConfigModule,
     PaypalModule, 
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

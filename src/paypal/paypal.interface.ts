@@ -31,7 +31,7 @@ export interface ApplicationContext {
   cancel_url: string;
 }
 
-export interface PostOrderResponse {
+export interface PaypalOrderResponse {
   id: string;
   status: string;
   links: {
@@ -39,6 +39,23 @@ export interface PostOrderResponse {
     rel: string;
     method: string;
   }[];
+}
+
+export interface PayPalAuthResponse {
+  scope: string;
+  access_token: string;
+  token_type: string;
+  app_id: string;
+  expires_in: number;
+  supported_authn_schemes: string[];
+  nonce: string;
+  client_metadata: {
+    name: string;
+    display_name: string;
+    logo_uri: string;
+    scopes: string[];
+    ui_type: string;
+  };
 }
 
 
