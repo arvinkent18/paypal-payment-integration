@@ -23,7 +23,7 @@ export class PaypalController {
    * @returns {Promise<PaypalOrderResponse>} The created order object.
    */
   @ApiBody({ type: CreateOrderDto })
-  @Post('order')
+  @Post('orders')
   async createOrder(@Body() createOrderDto: CreateOrderDto): Promise<PaypalOrderResponse> {
     try {
       const order = this.paypalService.createOrder(createOrderDto);
